@@ -3,17 +3,15 @@ const path = require('path')
 const home = require('./routes/home')
 const mongoose = require('mongoose')
 const register = require('./routes/register') //Import the register route
-const { MongoClient } = require("mongodb")
-const uri = 'mongodb://localhost:5000';
 
-(async function()	{
-	try {
-		const client = await MongoClient.connect(uri, { useNewUrlParser: true })
 
-		client.close();
-	} catch(e) {
-		console.error(e)
+mongoose.connect('mongodb://localhost/sample-store', (err, data) => {
+	if (err){
+		console.log('DB Connection Failed')
+		return
 	}
+
+	console.log('DB Connection Success')
 })
 
 const app = express()
