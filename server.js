@@ -25,6 +25,10 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', home)
 app.use('/register', register) //Connect the path and route
 app.use('/login', login)
+app.use((err, req, res, next) => {
+	console.log('ERROR: ' + err)
+	res.render('error', {message: err.message})
+})
 
 app.listen(5000)
 console.log('App running on http://localhost:5000')
