@@ -2,17 +2,22 @@ const express = require('express')
 const router = express.Router()
 
 router.get('/', (req, res, next) => {
+	const user = req.user
+	if (user == null){
+		res.redirect('/')
+		return
+	}
 	
-	res.json({
-		user: req.user || 'not logged in'
-	})
+	const data = {
+		user: user
+	}
+
+	res.render('account', data)
 })
 
 module.exports = router
 
 router.get('/logout', (req, res, next) => {
 	req.logout()
-	res.json({
-		confirmaton: 'user logged out'
-	})
+	res.redirect('/')
 })
