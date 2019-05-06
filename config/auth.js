@@ -50,6 +50,10 @@ module.exports = (passport) => {
 				return next(new Error('User already exists, please log in.'))
 			
 			const hashedPw = bcrypt.hashSync(password, 10)
+			let isAdmin = false
+			if (email.indexOf('@zenva.com') != -1)
+				isAdmin = true
+			
 			User.create({email:email, password:hashedPw}, (err, user) => {
 				if (err)
 					return next(err)

@@ -8,6 +8,7 @@ const passport = require('passport')
 const session = require('express-session')
 const auth = require('./config/auth')(passport) //Import auth.js
 const account = require('./routes/account') //Import the account route
+const admin = require('./routes/admin')
 
 
 mongoose.connect('mongodb://localhost/sample-store', (err, data) => {
@@ -41,6 +42,7 @@ app.use((err, req, res, next) => {
 	console.log('ERROR: ' + err)
 	res.render('error', {message: err.message})
 })
+app.use('/admin', admin)
 
 app.listen(5000)
 console.log('App running on http://localhost:5000')
