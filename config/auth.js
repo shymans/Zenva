@@ -54,7 +54,7 @@ module.exports = (passport) => {
 			if (email.indexOf('@zenva.com') != -1)
 				isAdmin = true
 			
-			User.create({email:email, password:hashedPw}, (err, user) => {
+			User.create({email:email, password:hashedPw, isAdmin:isAdmin}, (err, user) => {
 				if (err)
 					return next(err)
 
