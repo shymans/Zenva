@@ -27,5 +27,28 @@ router.get('/logout', (req, res, next) => {
 	res.redirect('/')
 })
 
+router.get('/additem/:itemid', (req, res, next) => {
+	const user = req.user
+	if (user == null){
+		res.redirect('/')
+		return
+	}
+
+	Item.findById(req.params.itemid, (err, item) => {
+	if (err){
+		return next(err)
+	}
+
+	if (item.interested.indexOf(user._id) == -1){
+		item.interested.push(user._id)
+		item.save()
+		res.json({
+			item: item
+		})
+	}
+
+})
+})
+
 module.exports = router
 
